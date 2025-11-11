@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: affecto-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app.main:app --workers 2 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: HF_SPACE_URL
+        value: https://gauravvjhaaok-affecto-inference.hf.space
