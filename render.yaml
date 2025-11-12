@@ -1,12 +1,10 @@
 services:
   - type: web
-    name: affecto-backend
-    env: python
-    region: oregon
+    name: affecto-api
+    runtime: python
     plan: free
-    runtime: python-3.11.0
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app.main:app --workers 2 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --timeout 120
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
-      - key: HF_SPACE_URL
-        value: https://gauravvjhaaok-affecto-inference.hf.space
+      - key: PYTHON_VERSION
+        value: 3.11.0
